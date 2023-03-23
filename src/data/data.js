@@ -1,14 +1,16 @@
 const songs = {
-  rain: {
-    author: "IlyaB",
-    title: "Rain",
-    cover: "./src/img/covers/rain.jpg"
-  },
   sadness: {
+    id: 0,
     author: "IlyaB",
     title: "Sadness",
     cover: "./src/img/covers/sadness.jpg"
-  }
+  },
+  rain: {
+    id: 1,
+    author: "IlyaB",
+    title: "Rain",
+    cover: "./src/img/covers/rain.jpg",
+  },
 }
 
 
