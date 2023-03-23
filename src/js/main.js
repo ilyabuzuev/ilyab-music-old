@@ -1,10 +1,10 @@
 import { data } from "../data/data.js";
 
+const songsList = document.getElementById('songsList');
+
 let songs;
 let playButton;
 let pauseButton;
-let songsList = document.getElementById('songsList');
-
 let soundList;
 let currentPlayback = {};
 
