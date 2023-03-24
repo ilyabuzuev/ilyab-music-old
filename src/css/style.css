@@ -226,3 +226,103 @@ img {
   font-weight: 500;
   color: var(--color-heading);
 }
+
+/* Media */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 700px;
+  }
+
+  .album__cover {
+    max-width: 200px;
+  }
+
+  .album__title {
+    font-size: 36px;
+  }
+
+  .album__author {
+    font-size: 20px;
+  }
+
+  .button-album__icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .button-album__text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 470px) {
+  .container {
+    max-width: 440px;
+  }
+
+  .album {
+    gap: 10px;
+  }
+
+  .album__header {
+    gap: 10px;
+  }
+
+  .album__cover {
+    max-width: 160px;
+  }
+
+  .album__title {
+    font-size: 26px;
+  }
+
+  .album__author {
+    font-size: 16px;
+  }
+
+  .song__title,
+  .song__duration {
+    font-size: 16px;
+  }
+
+  .song__author {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    max-width: 350px;
+  }
+  
+  .album__cover {
+    max-width: 140px;
+  }
+
+  .album__title {
+    font-size: 22px;
+  }
+
+  .album__author {
+    font-size: 14px;
+  }
+
+  .button-album__right {
+    display: none;
+  }
+
+  .song__title,
+  .song__duration {
+    font-size: 12px;
+  }
+
+  .song__author {
+    font-size: 10px;
+  }
+}
