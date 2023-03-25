@@ -59,13 +59,13 @@ img {
 }
 
 /* Header */
-.header {
-  padding: 5px 0px;
+.logo__img {
+  width: 80px;
 }
 
 /* Albums */
 .albums {
-  padding: 60px 0px;
+  padding: 20px 0px;
 }
 
 .album {
