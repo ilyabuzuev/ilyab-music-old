@@ -22,6 +22,8 @@ function renderSongs() {
 
   dataSongs = data.songList;
 
+  console.log(soundList);
+
   dataSongs.forEach((song, index) => {
     songsList.innerHTML += `
       <li class="songs__item song" data-song-title=${formatSongTitle(song)} data-id=${index}>
@@ -46,7 +48,7 @@ function renderSongs() {
           </div>
         </div>
         <div class="song__right">
-          <p class="song__duration">4:16</p>
+          <p class="song__duration">${song.duration}</p>
         </div>
       </li>
     `   
