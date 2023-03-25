@@ -110,10 +110,8 @@ img {
 
 .button-album {
   align-self: start;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 18px;
+  width: 120px;
+  height: 40px;
   font-size: 18px;
   color: var(--color-btn);
   background-color: var(--bgc-btn);
@@ -121,18 +119,38 @@ img {
   transition: background-color .2s ease;
 }
 
+.button-album__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
 .button-album:hover {
   background-color: var(--bgc-btn-hovered);
 }
 
-.button-album__icon {
-  display: block;
-  width: 14px;
-  height: 14px;
+.button-album__left {
+  position: relative;
+  width: 16px;
+  height: 16px;
 }
 
-.button-album__icon path {
+.button-album__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+.button-album__icon * {
   fill: var(--color-btn);
+}
+
+.button-album__icon-play + .display-none {
+  background-color: red;
 }
 
 /* Song */
@@ -171,7 +189,7 @@ img {
 
 .song__cover {
   display: block;
-  width: 48px;
+  width: 100%;
   border-radius: 3px;
   transition: filter .3s ease;
 }
@@ -251,9 +269,14 @@ img {
     font-size: 20px;
   }
 
-  .button-album__icon {
-    width: 10px;
-    height: 10px;
+  .button-album {
+    width: 100px;
+    height: 32px;
+  }
+
+  .button-album__left {
+    width: 12px;
+    height: 12px;
   }
 
   .button-album__text {
@@ -286,6 +309,15 @@ img {
     font-size: 16px;
   }
 
+  .button-album {
+    width: 90px;
+    height: 28px;
+  }
+
+  .button-album__text {
+    font-size: 14px;
+  }
+
   .song__title,
   .song__duration {
     font-size: 16px;
@@ -313,8 +345,18 @@ img {
     font-size: 14px;
   }
 
+  .button-album {
+    width: 40px;
+    height: 28px;
+  }
+
   .button-album__right {
     display: none;
+  }
+
+  .song__box {
+    width: 40px;
+    height: 40px;
   }
 
   .song__title,

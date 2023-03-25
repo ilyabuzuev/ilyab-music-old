@@ -5,7 +5,10 @@ const songsList = document.getElementById('songsList');
 let songs;
 let playButton;
 let pauseButton;
+let albumPlayButton;
+let albumPauseButton;
 let soundList;
+let currentSong;
 let currentPlayback = {};
 
 function formatSongTitle(song) {
@@ -21,8 +24,6 @@ function renderSongs() {
   let dataSongs;
 
   dataSongs = data.songList;
-
-  console.log(soundList);
 
   dataSongs.forEach((song, index) => {
     songsList.innerHTML += `
@@ -52,7 +53,7 @@ function renderSongs() {
         </div>
       </li>
     `   
-  })
+  });
 }
 
 function createSoundList() {
@@ -71,6 +72,9 @@ function play(songID) {
   playButton[songID].classList.add('display-none');
   pauseButton[songID].classList.remove('display-none');
 
+  albumPlayButton.classList.add('display-none');
+  albumPauseButton.classList.remove('display-none');
+
   songs[songID].style.backgroundColor = '#ccc';
 
   soundList[songID].play();
@@ -79,6 +83,9 @@ function play(songID) {
 function pause(songID) {
   playButton[songID].classList.remove('display-none');
   pauseButton[songID].classList.add('display-none');
+
+  albumPlayButton.classList.remove('display-none');
+  albumPauseButton.classList.add('display-none');
 
   soundList[songID].pause();
 }
@@ -94,15 +101,21 @@ function checkSongPlayback() {
   return currentPlayback;
 }
 
-function main() {
-  let currentSong;
+function listenAlbumButtonsClickHandler() {
+  albumPlayButton.addEventListener('click', () => {
+    if (currentPlayback.songID == undefined) {
+      play(0);
+    } else {
+      play(currentPlayback.songID);
+    }
+  });
 
-  renderSongs();
+  albumPauseButton.addEventListener('click', () => {
+    pause(currentPlayback.songID);
+  });
+}
 
-  songs = document.querySelectorAll('.song');
-  playButton = document.querySelectorAll('.song__button-play');
-  pauseButton = document.querySelectorAll('.song__button-pause');
-
+function songClickHandler() {
   soundList = createSoundList();
 
   songs.forEach(song => {
@@ -119,15 +132,26 @@ function main() {
             pause(song.dataset.id);
           }
         } else {
-          pauseButton[currentSong.songID].classList.add('display-none');
-          playButton[currentSong.songID].classList.remove('display-none');
-
           stop(currentSong.songID);
           play(song.dataset.id);
         }
       }
-    })
+    });
   });
+}
+
+function main() {
+  renderSongs();
+
+  songs = document.querySelectorAll('.song');
+  playButton = document.querySelectorAll('.song__button-play');
+  pauseButton = document.querySelectorAll('.song__button-pause');
+  albumPlayButton = document.getElementById('albumPlayButton');
+  albumPauseButton = document.getElementById('albumPauseButton');
+
+  listenAlbumButtonsClickHandler();
+
+  songClickHandler();
 }
 
 main();
