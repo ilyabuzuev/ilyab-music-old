@@ -78,6 +78,18 @@ function play(songID) {
   songs[songID].style.backgroundColor = '#ccc';
 
   soundList[songID].play();
+
+  soundList[songID].addEventListener('ended', () => {
+    songs[songID].style = '';
+
+    if (+songID == soundList.length - 1) {
+      songID = 0;
+    } else {
+      songID = +songID + 1;
+    }
+
+    play(songID);
+  });
 }
 
 function pause(songID) {
@@ -101,7 +113,7 @@ function checkSongPlayback() {
   return currentPlayback;
 }
 
-function listenAlbumButtonsClickHandler() {
+function albumButtonsClickHandler() {
   albumPlayButton.addEventListener('click', () => {
     if (currentPlayback.songID == undefined) {
       play(0);
@@ -149,9 +161,9 @@ function main() {
   albumPlayButton = document.getElementById('albumPlayButton');
   albumPauseButton = document.getElementById('albumPauseButton');
 
-  listenAlbumButtonsClickHandler();
+  albumButtonsClickHandler();
 
-  songClickHandler();
+  songClickHandler(); 
 }
 
 main();
