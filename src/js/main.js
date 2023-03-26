@@ -3,13 +3,16 @@ import { data } from "../data/data.js";
 const songsList = document.getElementById('songsList');
 
 let songs;
+let dataSongs;
 let playButton;
 let pauseButton;
+let songDuration;
 let albumPlayButton;
 let albumPauseButton;
 let soundList;
+let durationSlider;
 let currentSong;
-let currentPlayback = {};
+let targetSong;
 
 function formatSongTitle(song) {
   let formatedString = '';
@@ -21,8 +24,6 @@ function formatSongTitle(song) {
 }
 
 function renderSongs() {
-  let dataSongs;
-
   dataSongs = data.songList;
 
   dataSongs.forEach((song, index) => {
@@ -67,7 +68,9 @@ function createSoundList() {
 }
 
 function play(songID) {
-  currentPlayback.songID = songID;
+  soundList[songID].play();
+
+  currentSong = songID;
 
   playButton[songID].classList.add('display-none');
   pauseButton[songID].classList.remove('display-none');
@@ -77,8 +80,25 @@ function play(songID) {
 
   songs[songID].style.backgroundColor = '#ccc';
 
-  soundList[songID].play();
+  soundList[songID].addEventListener('timeupdate', () => {
+    let currentSongTime = Math.floor(soundList[songID].currentTime);
 
+    let seconds = currentSongTime % 60;
+    let minutes = Math.floor(currentSongTime / 60);
+
+    if (currentSongTime < 10) {
+      songDuration[songID].innerHTML = `0:0${seconds}`;
+    } else if (currentSongTime < 60) {
+      songDuration[songID].innerHTML = `0:${seconds}`;
+    } else {
+      if (currentSongTime % 60 < 10) {
+        songDuration[songID].innerHTML = `${minutes}:0${seconds}`;
+      } else {
+        songDuration[songID].innerHTML = `${minutes}:${seconds}`;
+      }
+    }
+  });
+  
   soundList[songID].addEventListener('ended', () => {
     songs[songID].style = '';
 
@@ -93,37 +113,44 @@ function play(songID) {
 }
 
 function pause(songID) {
+  soundList[songID].pause();
+
   playButton[songID].classList.remove('display-none');
   pauseButton[songID].classList.add('display-none');
 
   albumPlayButton.classList.remove('display-none');
   albumPauseButton.classList.add('display-none');
-
-  soundList[songID].pause();
 }
 
 function stop(songID) {
   soundList[songID].pause();
   soundList[songID].currentTime = 0;
 
-  songs[currentPlayback.songID].style = '';
+  playButton[songID].classList.remove('display-none');
+  pauseButton[songID].classList.add('display-none');
+
+  songs[songID].style = '';
+
+  setTimeout(() => {
+    songDuration[songID].innerHTML = dataSongs[songID].duration;
+  }, 10);
 }
 
-function checkSongPlayback() {
-  return currentPlayback;
-}
+// function durationUpdate() {
+
+// }
 
 function albumButtonsClickHandler() {
   albumPlayButton.addEventListener('click', () => {
-    if (currentPlayback.songID == undefined) {
+    if (currentSong == undefined) {
       play(0);
     } else {
-      play(currentPlayback.songID);
+      play(currentSong);
     }
   });
 
   albumPauseButton.addEventListener('click', () => {
-    pause(currentPlayback.songID);
+    pause(currentSong);
   });
 }
 
@@ -132,20 +159,20 @@ function songClickHandler() {
 
   songs.forEach(song => {
     song.addEventListener('click', () => {
-      currentSong = checkSongPlayback();
+      targetSong = song.dataset.id;
 
-      if (currentSong.songID === undefined) {
-        play(song.dataset.id);
+      if (currentSong == undefined) {
+        play(targetSong);
       } else {
-        if (+currentSong.songID === +song.dataset.id) {
-          if (soundList[song.dataset.id].paused) {
-            play(song.dataset.id);
+        if (currentSong == targetSong) {
+          if (soundList[targetSong].paused) {
+            play(targetSong);
           } else {
-            pause(song.dataset.id);
+            pause(targetSong);
           }
         } else {
-          stop(currentSong.songID);
-          play(song.dataset.id);
+          stop(currentSong);
+          play(targetSong);
         }
       }
     });
@@ -158,6 +185,8 @@ function main() {
   songs = document.querySelectorAll('.song');
   playButton = document.querySelectorAll('.song__button-play');
   pauseButton = document.querySelectorAll('.song__button-pause');
+  songDuration = document.querySelectorAll('.song__duration');
+  durationSlider = document.getElementById('durationSlider');
   albumPlayButton = document.getElementById('albumPlayButton');
   albumPauseButton = document.getElementById('albumPauseButton');
 

@@ -4,7 +4,7 @@ const songs = {
     author: "IlyaB",
     title: "Sadness",
     cover: "./src/img/covers/cover.jpg",
-    duration: "4:13"
+    duration: "4:12"
   },
   rain: {
     id: 1,
@@ -53,7 +53,7 @@ const songs = {
     author: "IlyaB",
     title: "Good Bye",
     cover: "./src/img/covers/cover.jpg",
-    duration: "1:53"
+    duration: "1:52"
   },
 }
 
