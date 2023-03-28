@@ -377,11 +377,33 @@ img {
   color: var(--color-heading);
 }
 
-.controls__input {
-  /* appearance: none; */
+.animation-song {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 6px;
-  background: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3px;
+  padding-bottom: 10px;
+}
+
+.animation-song__item {
+  width: 5px; 
+  background-color: #fff;
+  border-radius: 2px;
+  transition: height .2s ease;
+}
+
+.song:hover .animation-song__item {
+  display: none;
+}
+
+/* Animations */
+@keyframes songAnimation {
+  
 }
 
 /* Media */

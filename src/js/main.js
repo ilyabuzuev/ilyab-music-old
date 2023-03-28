@@ -23,6 +23,12 @@ let isPlaying;
 let playbackTitle;
 let playbackArtist;
 let playerDuration;
+let songAnimation;
+let songCover;
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function formatSongTitle(song) {
   let formatedString = '';
@@ -53,6 +59,12 @@ function renderSongs() {
                 <rect x="16.5927" width="11.4074" height="32" rx="2" fill="#333333"/>
               </svg>                    
             </button>
+            <div class="song__animation animation-song display-none" id="songAnimation">
+              <div class="animation-song__item animation-song__item-1"></div>
+              <div class="animation-song__item animation-song__item-2"></div>
+              <div class="animation-song__item animation-song__item-3"></div>
+              <div class="animation-song__item animation-song__item-4"></div>
+            </div>
           </div>
           <div class="song__name">
             <h3 class="song__title">${song.title}</h3>
@@ -132,6 +144,8 @@ function play(songID) {
 
   player.classList.remove('display-none');
 
+  animateSong()
+
   setAlbumButtonIcon();
   songDurationUpdate(songID);
   songEndHandler(songID);
@@ -152,6 +166,10 @@ function stop(songID) {
 
   playButton[songID].classList.remove('display-none');
   pauseButton[songID].classList.add('display-none');
+
+  songAnimation[songID].classList.add('display-none');
+
+  songCover[currentSong].style = '';
 
   songs[songID].style = '';
 
@@ -261,6 +279,10 @@ function setAlbumButtonIcon() {
     pauseButton[currentSong].classList.remove('display-none');
     albumPauseButton.classList.remove('display-none');
     playerPauseButton.classList.remove('display-none');
+
+    songAnimation[currentSong].classList.remove('display-none');
+
+    songCover[currentSong].style.filter = 'brightness(0.3)';
   } else {
     playButton[currentSong].classList.remove('display-none');
     albumPlayButton.classList.remove('display-none');
@@ -269,6 +291,10 @@ function setAlbumButtonIcon() {
     pauseButton[currentSong].classList.add('display-none');
     albumPauseButton.classList.add('display-none');
     playerPauseButton.classList.add('display-none');
+
+    songAnimation[currentSong].classList.add('display-none');
+
+    songCover[currentSong].style = '';
   }
 }
 
@@ -279,6 +305,32 @@ function setCurrentSongTime() {
     position = (soundList[currentSong].duration / 300);
 
     soundList[currentSong].currentTime = e.offsetX * position;
+  });
+}
+
+function animateSong() {
+  let randomNumber;
+
+  Array.from(songAnimation[currentSong].children).forEach((bar, index) => {
+    setInterval(() => {
+      if (index == 0) {
+        randomNumber = getRandomInt(10, 35);
+      }
+
+      if (index == 1) {
+        randomNumber = getRandomInt(10, 25);
+      }
+      
+      if (index == 2) {
+        randomNumber = getRandomInt(10, 20);
+      }
+
+      if (index == 3) {
+        randomNumber = getRandomInt(5, 20);
+      }
+
+      bar.style.height = randomNumber + 'px';
+    }, 100);
   });
 }
 
@@ -301,6 +353,8 @@ function main() {
   playbackTitle = document.querySelector('.playback__title');
   playbackArtist = document.querySelector('.playback__artist');
   playerDuration = document.querySelector('.player__duration');
+  songAnimation = document.querySelectorAll('.song__animation');
+  songCover = document.querySelectorAll('.song__cover');
 
   songClickHandler();
   albumButtonsClickHandler();
