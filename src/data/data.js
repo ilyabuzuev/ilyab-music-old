@@ -23,7 +23,7 @@ const songs = {
   untilPostPunkTearsUsApart: {
     id: 3,
     author: "IlyaB",
-    title: "Until Post-punk Tears Us Apart",
+    title: "Until Post-Punk Tears Us Apart",
     cover: "./src/img/covers/cover.jpg",
     duration: "2:07"
   },
@@ -55,6 +55,20 @@ const songs = {
     cover: "./src/img/covers/cover.jpg",
     duration: "1:52"
   },
+  tearsOfAutumn: {
+    id: 8,
+    author: "IlyaB",
+    title: "Tears of Autumn",
+    cover: "./src/img/covers/cover.jpg",
+    duration: "2:20"
+  },
+  mountains: {
+    id: 9,
+    author: "IlyaB",
+    title: "Mountains",
+    cover: "./src/img/covers/cover.jpg",
+    duration: "1:27"
+  }
 }
 
 
@@ -65,8 +79,10 @@ export const data = {
     songs.march,
     songs.untilPostPunkTearsUsApart,
     songs.dawn,
+    songs.tearsOfAutumn,
     songs.panicAttack,
+    songs.goodBye,
+    songs.mountains,
     songs.may,
-    songs.goodBye
   ]
 }
