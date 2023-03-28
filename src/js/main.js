@@ -3,6 +3,7 @@ import { data } from "../data/data.js";
 const songsList = document.getElementById('songsList');
 
 let songs;
+let player;
 let dataSongs;
 let playButton;
 let pauseButton;
@@ -15,9 +16,13 @@ let playerNextButton;
 let soundList;
 let songDuration;
 let durationSlider;
+let durationBox;
 let currentSong;
 let targetSong;
 let isPlaying;
+let playbackTitle;
+let playbackArtist;
+let playerDuration;
 
 function formatSongTitle(song) {
   let formatedString = '';
@@ -72,23 +77,39 @@ function createSoundList() {
   return soundList;
 }
 
-function songDurationUpdate(songID) {
-  soundList[songID].addEventListener('timeupdate', () => {
-    let currentSongTime = Math.floor(soundList[songID].currentTime);
-    let seconds = currentSongTime % 60;
-    let minutes = Math.floor(currentSongTime / 60);
+function timeConversion(currentTime) {
+  let currentSongTime = Math.floor(currentTime);
+  let seconds = currentSongTime % 60;
+  let minutes = Math.floor(currentSongTime / 60);
+  let convertedTime;
 
-    if (currentSongTime < 10) {
-      songDuration[songID].innerHTML = `0:0${seconds}`;
-    } else if (currentSongTime < 60) {
-      songDuration[songID].innerHTML = `0:${seconds}`;
+  if (currentSongTime < 10) {
+    convertedTime = `0:0${seconds}`;
+  } else if (currentSongTime < 60) {
+    convertedTime = `0:${seconds}`;
+  } else {
+    if (currentSongTime % 60 < 10) {
+      convertedTime = `${minutes}:0${seconds}`;
     } else {
-      if (currentSongTime % 60 < 10) {
-        songDuration[songID].innerHTML = `${minutes}:0${seconds}`;
-      } else {
-        songDuration[songID].innerHTML = `${minutes}:${seconds}`;
-      }
+      convertedTime = `${minutes}:${seconds}`;
     }
+  }
+
+  return convertedTime;
+}
+
+function setCurrentSongDuration(duration) {
+  songDuration[currentSong].textContent = duration;
+  playerDuration.textContent = duration;
+}
+
+function songDurationUpdate(songID) {
+  let convertedTime;
+
+  soundList[songID].addEventListener('timeupdate', () => {
+    convertedTime = timeConversion(soundList[songID].currentTime);
+
+    setCurrentSongDuration(convertedTime);
 
     sliderDurationUpdate(soundList[songID]);
   });
@@ -108,6 +129,8 @@ function play(songID) {
   isPlaying = true;
 
   currentSong = songID;
+
+  player.classList.remove('display-none');
 
   setAlbumButtonIcon();
   songDurationUpdate(songID);
@@ -217,15 +240,16 @@ function playerButtonsClickHandler() {
 }
 
 function setPlayerSongData(songID) {
-  const playbackTitle = document.querySelector('.playback__title');
-  const playbackArtist = document.querySelector('.playback__artist');
-  const playerDuration = document.querySelector('.player__duration');
-
   playbackTitle.textContent = dataSongs[songID].title;
   playbackArtist.textContent = dataSongs[songID].author;
-  playerDuration.textContent = dataSongs[songID].duration;
 
   playbackTitle.dataset.songTitle = dataSongs[songID].title;
+
+  // playbackTitle.addEventListener('mouseover', (e) => {
+  //   setTimeout(() => {
+  //     console.log(e);
+  //   }, 500);
+  // }); 
 }
 
 function setAlbumButtonIcon() {
@@ -248,24 +272,40 @@ function setAlbumButtonIcon() {
   }
 }
 
+function setCurrentSongTime() {
+  let position;
+
+  durationBox.addEventListener('click', (e) => {
+    position = (soundList[currentSong].duration / 300);
+
+    soundList[currentSong].currentTime = e.offsetX * position;
+  });
+}
+
 function main() {
   renderSongs();
 
   songs = document.querySelectorAll('.song');
+  player = document.getElementById('player');
   playButton = document.querySelectorAll('.song__button-play');
   pauseButton = document.querySelectorAll('.song__button-pause');
   songDuration = document.querySelectorAll('.song__duration');
   durationSlider = document.getElementById('durationSlider');
+  durationBox = document.getElementById('durationBox');
   albumPlayButton = document.getElementById('albumPlayButton');
   albumPauseButton = document.getElementById('albumPauseButton');
   playerPlayButton = document.getElementById('playerPlayButton');
   playerPauseButton = document.getElementById('playerPauseButton');
   playerPrevButton = document.getElementById('playerPrevButton');
   playerNextButton = document.getElementById('playerNextButton');
+  playbackTitle = document.querySelector('.playback__title');
+  playbackArtist = document.querySelector('.playback__artist');
+  playerDuration = document.querySelector('.player__duration');
 
   songClickHandler();
   albumButtonsClickHandler();
   playerButtonsClickHandler();
+  setCurrentSongTime();
 }
 
 main();
