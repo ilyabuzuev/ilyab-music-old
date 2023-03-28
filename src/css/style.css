@@ -174,7 +174,7 @@ img {
   content: '';
   position: absolute;
   top: 50%;
-  right: 0;
+  right: -7px;
   transform: translateY(-50%);
   display: none;
   width: 12px;
