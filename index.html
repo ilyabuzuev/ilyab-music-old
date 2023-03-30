@@ -12,7 +12,7 @@
   <header class="header">
     <div class="header__container container">
       <a class="header__logo logo" href="./index.html"></a>
-      <div class="header__player player display-none" id="player">
+      <div class="header__player player visually-hidden" id="player">
         <div class="player__container">
           <div class="player__buttons">
             <button class="player__button button-player button-player-prev button-reset" id="playerPrevButton">
@@ -53,8 +53,16 @@
               <div class="player__slider" id="durationSlider"></div>
             </div>
           </div>
+          <div class="player__volume volume-player" id="volumeBox">
+            <button class="volume-player__button button-reset" id="volumeButton"></button>
+            <div class="volume-player__menu display-none" id="volumeMenu">
+              <div class="volume-player__progress" id="volumeSlider">
+                <div class="volume-player__slider" id="volumeValue"></div>
+              </div>
+            </div>
+          </div>
           <div class="player__right">
-            <p class="player__duration"></p>
+            <p class="player__duration">0:00</p>
           </div>
         </div>
       </div>
