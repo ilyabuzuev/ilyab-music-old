@@ -13,7 +13,7 @@
     <div class="header__container container">
       <a class="header__logo logo" href="./index.html"></a>
       <div class="header__player player visually-hidden" id="player">
-        <div class="player__container">
+        <div class="player__container container">
           <div class="player__buttons">
             <button class="player__button button-player button-player-prev button-reset" id="playerPrevButton">
               <svg class="button-player__img" width="34" height="23" viewBox="0 0 34 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,8 +109,9 @@
             </div>
             <div class="stroke"></div>
             <div class="album__content">
-              <div class="album__songs songs">
+              <div class="album__songs songs" id="albumSongs">
                 <ul class="songs__list list-reset" id="songsList"></ul>
+                <button class="songs__more button-reset" id="showMoreSongs">Показать ещё</button>
               </div>
             </div>
           </li>
