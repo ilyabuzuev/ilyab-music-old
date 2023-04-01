@@ -47,6 +47,16 @@ function renderSongs() {
   let showMoreSongs;
   let songCount;
   let isSongMoreThanEight;
+  let songItemHeigth;
+  let songGap;
+
+  if (window.innerWidth > 375) {
+    songItemHeigth = 58;
+    songGap = 10;
+  } else {
+    songItemHeigth = 50;
+    songGap = 5;
+  }
 
   dataSongs = data.songList;
   songCount = dataSongs.length;
@@ -92,21 +102,21 @@ function renderSongs() {
   showMoreSongs = document.getElementById('showMoreSongs');
 
   if (isSongMoreThanEight) {
-    songsList.style.height = `${(8 * 58) + (7 * 10)}px`;
+    songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
   } else {
     showMoreSongs.classList.add('display-none');
   }
 
   function showMore() {
-    songsList.style.height = `${(songCount * 58) + ((songCount - 1) * 10)}px`;
+    songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
     songsList.classList.toggle('opened');
 
     if (songsList.classList.contains('opened')) {
       showMoreSongs.textContent = 'Скрыть';
-      songsList.style.height = `${(songCount * 58) + ((songCount - 1) * 10)}px`;
+      songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
     } else {
       showMoreSongs.textContent = 'Показать ещё';
-      songsList.style.height = `${(8 * 58) + (7 * 10)}px`;
+      songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
     }
 
     window.scroll({
@@ -472,11 +482,14 @@ function setVolumeIcon() {
 }
 
 function showVolumeMenu() {
-  const volumeButton = document.getElementById("volumeButton");
-  const volumeMenu = document.getElementById("volumeMenu");
+  const volumeBox = document.getElementById("volumeBox");
 
-  volumeButton.addEventListener("click", () => {
-    volumeMenu.classList.toggle("display-none");
+  volumeBox.addEventListener('mouseenter', () => {
+    volumeBox.classList.add('volume-opened');
+  });
+
+  volumeBox.addEventListener('mouseleave', () => {
+    volumeBox.classList.remove('volume-opened');
   });
 }
 

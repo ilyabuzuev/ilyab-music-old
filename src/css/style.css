@@ -20,7 +20,7 @@
 
   --bgc-stroke: #dddddd;
 
-  --color-shadow: #bebebe;
+  --color-shadow: #a7a7a7;
 }
 
 * {
@@ -225,7 +225,6 @@ img {
 
 .volume-player__menu {
   position: absolute;
-  top: 40px;
   right: -40px;
   display: flex;
   align-items: center;
@@ -234,6 +233,10 @@ img {
   background-color: var(--bgc-dark);
   border-radius: 10px;
   box-shadow: 0px 2px 5px 1px var(--color-shadow);
+}
+
+.volume-player.volume-opened .volume-player__menu {
+  display: block;
 }
 
 .volume-player__progress {
@@ -679,6 +682,10 @@ img {
 
   .playback__name {
     width: 150px;
+  }
+
+  .songs__list {
+    gap: 5px;
   }
 
   .song__box {
