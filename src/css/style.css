@@ -599,7 +599,7 @@ img {
   }
 
   .playback__cover {
-    width: 45px;
+    width: 80px;
   }
 }
 
@@ -612,8 +612,16 @@ img {
     gap: 4px;
   }
 
+  .playback__cover {
+    width: 60px;
+  }
+
   .player__buttons {
-    gap: 4px;
+    gap: 8px;
+  }
+
+  .player__playback {
+    width: 100%;
   }
 
   .playback__title {
@@ -696,6 +704,10 @@ img {
 
   .player__playback {
     width: 100%;
+  }
+
+  .playback__cover {
+    width: 45px;
   }
 
   .playback__name {
