@@ -69,6 +69,20 @@ const songs = {
     cover: "./src/img/covers/cover.jpg",
     duration: "1:27",
   },
+  april: {
+    id: 10,
+    artist: "IlyaB",
+    title: "April",
+    cover: "./src/img/covers/cover.jpg",
+    duration: "4:22",
+  },
+  hope: {
+    id: 11,
+    artist: "IlyaB",
+    title: "Hope",
+    cover: "./src/img/covers/cover.jpg",
+    duration: "2:36",
+  },
 };
 
 export const data = {
@@ -76,12 +90,14 @@ export const data = {
     songs.sadness,
     songs.rain,
     songs.march,
+    songs.april,
     songs.untilPostPunkTearsUsApart,
+    songs.hope,
     songs.dawn,
-    songs.tearsOfAutumn,
     songs.panicAttack,
     songs.goodBye,
     songs.mountains,
+    songs.tearsOfAutumn,
     songs.may,
   ],
 };

@@ -61,7 +61,7 @@ function renderSongs() {
   dataSongs = data.songList;
   songCount = dataSongs.length;
 
-  songCount > 8 ? isSongMoreThanEight = true : isSongMoreThanEight = false;
+  // songCount > 8 ? isSongMoreThanEight = true : isSongMoreThanEight = false;
 
   dataSongs.forEach((song, index) => {
     songsList.innerHTML += `
@@ -101,32 +101,32 @@ function renderSongs() {
 
   showMoreSongs = document.getElementById('showMoreSongs');
 
-  if (isSongMoreThanEight) {
-    songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
-  } else {
-    showMoreSongs.classList.add('display-none');
-  }
+  // if (isSongMoreThanEight) {
+  //   songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
+  // } else {
+  //   showMoreSongs.classList.add('display-none');
+  // }
 
-  function showMore() {
-    songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
-    songsList.classList.toggle('opened');
+  // function showMore() {
+  //   songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
+  //   songsList.classList.toggle('opened');
 
-    if (songsList.classList.contains('opened')) {
-      showMoreSongs.textContent = 'Скрыть';
-      songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
-    } else {
-      showMoreSongs.textContent = 'Показать ещё';
-      songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
-    }
+  //   if (songsList.classList.contains('opened')) {
+  //     showMoreSongs.textContent = 'Скрыть';
+  //     songsList.style.height = `${(songCount * songItemHeigth) + ((songCount - 1) * songGap)}px`;
+  //   } else {
+  //     showMoreSongs.textContent = 'Показать ещё';
+  //     songsList.style.height = `${(8 * songItemHeigth) + (7 * songGap)}px`;
+  //   }
 
-    window.scroll({
-      top: 100,
-      left: 100,
-      behavior: "smooth",
-    })
-  }
+  //   window.scroll({
+  //     top: 100,
+  //     left: 100,
+  //     behavior: "smooth",
+  //   })
+  // }
 
-  showMoreSongs.addEventListener('click', showMore);
+  // showMoreSongs.addEventListener('click', showMore);
 }
 
 function createSoundList() {
